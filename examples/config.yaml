@@ -1,0 +1,11 @@
+sourcePythonClass: metadata.community.applications.OpenMetadataRetention.main.OpenMetadataRetention
+appConfig:
+  type: CommunityApp
+  retentionSeconds: 86400
+workflowConfig:
+  loggerLevel: INFO
+  openMetadataServerConfig:
+    hostPort: http://localhost:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: REPLACE_WITH_JWT_TOKEN

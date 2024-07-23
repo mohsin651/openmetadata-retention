@@ -1,0 +1,36 @@
+{
+    "name": "OpenMetadataRetention",
+    "displayName": "Retention",
+    "description": "This app runs retention policies on metadata.",
+    "features": "Remove metadata that is no longer needed.",
+    "appType": "external",
+    "appScreenshots": [
+        "test.jpg"
+    ],
+    "developer": "Collate Inc.",
+    "developerUrl": "https://www.getcollate.io",
+    "privacyPolicyUrl": "https://www.getcollate.io",
+    "supportEmail": "support@getcollate.io",
+    "scheduleType": "Scheduled",
+    "permission": "All",
+    "sourcePythonClass": "metadata.community.applications.OpenMetadataRetention.main.OpenMetadataRetention",
+    "className": "org.openmetadata.service.apps.templates.CommunityApp",
+    "runtime": {
+        "enabled": "true"
+    },
+    "appConfiguration": {},
+    "configSchema": {
+        "$id": "OpenMetadataRetention.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "OpenMetadataRetentionConfig",
+        "description": "This schema defines configuration for Search Reindexing Application.",
+        "properties": {
+            "retentionSeconds": {
+                "title": "Retention Seconds",
+                "type": "integer",
+                "default": 86400
+            }
+        },
+        "additionalProperties": false
+    }
+}

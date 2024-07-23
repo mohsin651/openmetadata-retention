@@ -1,0 +1,105 @@
+**/generated
+docker-volume
+
+#  Copyright 2021 Collate
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#  http://www.apache.org/licenses/LICENSE-2.0
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+# Created by .ignore support plugin (hsz.mobi)
+# Maven
+__pycache__
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.python-version
+
+# Java template
+*.class
+venv
+env
+.java-version
+# logs
+logs
+*.log
+*.egg-info
+.eggs
+*.db
+# Eclipse
+.settings/
+.project
+.classpath
+
+# Intellij
+*.iml
+*.ipr
+*.iws
+.idea/
+# Package Files
+*.jar
+*.war
+*.ear
+
+# mac dir files
+.DS_Store
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+node_modules
+build
+dist
+
+#tests
+.coverage*
+
+#vscode
+*/.vscode/*
+.vscode/*
+
+# OM source code
+collate-ui/src/main/resources/ui/src/openmetadata-ui/
+collate-ui/src/main/resources/ui/src/generated/
+
+# ui-tests
+collate-ui/src/main/resources/ui/test-report.xml
+collate-ui/src/main/resources/ui/src/test/
+
+# ts build info and report
+collate-ui/src/main/resources/ui/tsconfig.tsbuildinfo
+collate-ui/src/main/resources/ui/webpack
+collate-ui/src/main/resources/ui/public/locales
+collate-ui/src/main/resources/ui/test-report.xml
+
+
+# docker volue
+
+docker/development/docker-volume
+
+# Cypress artifacts
+collate-ui/src/main/resources/ui/cypress/screenshots
+collate-ui/src/main/resources/ui/cypress/videos
+collate-ui/src/main/resources/ui/cypress/fixtures
+
+# Playwright artifacts
+collate-ui/src/main/resources/ui/playwright/output/
+collate-ui/src/main/resources/ui/playwright/e2e/.cache/
+collate-ui/src/main/resources/ui/playwright/.env
+collate-ui/src/main/resources/ui/playwright/.auth
+
+# snyk reports
+security-report
+
+# Python generated sources
+ingestion-extension/src/metadata/generated/**
