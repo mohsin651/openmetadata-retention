@@ -8,7 +8,9 @@ from metadata.generated.schema.entity.data.pipeline import Pipeline
 from metadata.workflow.application import AppRunner
 from metadata.ingestion.ometa.models import EntityList
 
-from metadata.community.applications.OpenMetadataRetention.generated.config import OpenMetadataRetentionConfig
+from metadata.community.applications.OpenMetadataRetention.generated.config import (
+    OpenMetadataRetentionConfig,
+)
 
 logger = logging.getLogger("openmetadata_retention")
 
@@ -33,8 +35,6 @@ class Pager:
             yield from self.page.entities
 
 
-
-
 class OpenMetadataRetention(AppRunner):
     """
     OpenMetadataRetention Application
@@ -46,7 +46,7 @@ class OpenMetadataRetention(AppRunner):
         config = self.app_config.model_dump()
         del config["type"]
         self.app_config = OpenMetadataRetentionConfig.model_validate(config)
-    
+
     @property
     def name(self) -> str:
         return "MetadataRetention"
@@ -54,7 +54,7 @@ class OpenMetadataRetention(AppRunner):
     def run(self) -> None:
         print(self.app_config)
         now = datetime.datetime.now()
-        retention_period = datetime.timedelta(days=1)
+        retention_period = datetime.timedelta(seconds=self.app_config.retentionSeconds)
         print(f"Running on {now} and deleting tables older than {retention_period}")
         expire_after = (now.timestamp() - retention_period.total_seconds()) * 1000
         version = self.metadata.get_server_version()
@@ -78,7 +78,7 @@ class OpenMetadataRetention(AppRunner):
 
     def expire(self, entity: Table, expire_after: int) -> None:
         if entity.updatedAt.root < expire_after:
-            print(f"Deleting table {entity.fullyQualifiedName.root}")
-            self.metadata.delete_entity(type(entity).__class__, entity.id)
+            print(f"Deleting {type(entity).__name__}: {entity.fullyQualifiedName.root}")
+            self.metadata.delete(type(entity), entity.id)
         else:
             print(f"Entity {entity.fullyQualifiedName.root} is not due for deletion")
