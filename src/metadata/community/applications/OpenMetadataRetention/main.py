@@ -1,5 +1,6 @@
 import datetime
 import logging
+import time
 from typing import Optional
 
 from metadata.generated.schema.entity.data.table import Table
@@ -13,7 +14,6 @@ from metadata.community.applications.OpenMetadataRetention.generated.config impo
 )
 
 logger = logging.getLogger("openmetadata_retention")
-
 
 class Pager:
     """Pager class to paginate through the results"""
@@ -59,11 +59,7 @@ class OpenMetadataRetention(AppRunner):
         expire_after = (now.timestamp() - retention_period.total_seconds()) * 1000
         version = self.metadata.get_server_version()
         print(f"Running retention on tables with server version {version}")
-        for entity_type in [
-            Table,
-            Dashboard,
-            Pipeline,
-        ]:
+        for entity_type in [Table, Dashboard, Pipeline]:
             print(f"Running retention on {entity_type.__name__}")
 
             def next_page(after: Optional[str]):
@@ -82,3 +78,31 @@ class OpenMetadataRetention(AppRunner):
             self.metadata.delete(type(entity), entity.id)
         else:
             print(f"Entity {entity.fullyQualifiedName.root} is not due for deletion")
+
+    def register_status_metric_with_backoff(self, retries: int = 5, initial_delay: float = 1.0, backoff_factor: float = 2.0) -> None:
+        """
+        Attempt to register a status metric with exponential backoff.
+        :param retries: Number of retries before giving up.
+        :param initial_delay: Initial delay before retrying in seconds.
+        :param backoff_factor: Multiplier applied to the delay on each retry.
+        """
+        attempt = 0
+        delay = initial_delay
+
+        while attempt < retries:
+            try:
+                # Replace with actual call to register status metric
+                self.registerStatusMetric()  # Hypothetical function call
+                print("Successfully registered status metric.")
+                return
+            except Exception as e:
+                logger.error(f"Attempt {attempt + 1} failed: {e}")
+                attempt += 1
+                if attempt >= retries:
+                    logger.error("Maximum retries reached. Could not register status metric.")
+                    break
+                logger.info(f"Retrying in {delay} seconds...")
+                time.sleep(delay)
+                delay *= backoff_factor
+
+        logger.error("Failed to register status metric after several retries.")
