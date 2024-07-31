@@ -69,6 +69,9 @@ class OpenMetadataRetention(AppRunner):
             for entity in pager:
                 self.expire(entity, expire_after)
 
+                # Attempt to register status metric with exponential backoff
+                self.register_status_metric_with_backoff()
+
     def close(self) -> None:
         pass
 
